@@ -8,25 +8,31 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
   const tr = t[lang].nav
 
   const items = [
-    { href: '/home', icon: '🏠', label: tr.home },
-    { href: '/companion', icon: '💬', label: tr.companion },
-    { href: '/journal', icon: '📓', label: tr.journal },
-    { href: '/guide', icon: '📖', label: tr.guide },
-    { href: '/progress', icon: '📈', label: tr.progress },
+    { href: '/home', label: tr.home },
+    { href: '/companion', label: tr.companion },
+    { href: '/journal', label: tr.journal },
+    { href: '/guide', label: tr.guide },
+    { href: '/progress', label: tr.progress },
   ]
 
   return (
-    <nav className="bottom-nav">
-      {items.map(item => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={`nav-item ${path === item.href ? 'active' : ''}`}
-        >
-          <span className="nav-icon">{item.icon}</span>
-          <span>{item.label}</span>
-        </Link>
-      ))}
+    <nav className="top-nav">
+      <Link href="/home" className="nav-brand">NoBet</Link>
+      <div className="nav-links">
+        {items.map(item => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`nav-item ${path === item.href ? 'active' : ''}`}
+          >
+            {item.label}
+          </Link>
+        ))}
+        <div className="lang-switch">
+          <button className={`lang-btn ${lang === 'ro' ? 'active' : ''}`} onClick={() => onLangChange('ro')}>RO</button>
+          <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => onLangChange('en')}>EN</button>
+        </div>
+      </div>
     </nav>
   )
 }
