@@ -9,11 +9,11 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
 
   const items = [
     { href: '/home', label: tr.home },
-    { href: '/contor', label: lang === 'ro' ? 'Contor' : 'Counter' },
     { href: '/companion', label: tr.companion },
-    { href: '/journal', label: tr.journal },
     { href: '/guide', label: tr.guide },
+    { href: '/journal', label: tr.journal },
     { href: '/progress', label: tr.progress },
+    { href: '/contor', label: lang === 'ro' ? 'Contor' : 'Counter' },
   ]
 
   return (

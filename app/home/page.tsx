@@ -62,7 +62,7 @@ export default function HomePage() {
             </p>
 
             <button className="btn-primary" style={{ maxWidth: 220, marginBottom: '0.75rem' }}
-              onClick={() => router.push('/contor')}>
+              onClick={() => router.push('/evaluare')}>
               {lang === 'ro' ? 'Încep de azi' : 'I start today'}
             </button>
 
