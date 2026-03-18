@@ -9,6 +9,7 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
 
   const items = [
     { href: '/home', label: tr.home },
+    { href: '/contor', label: lang === 'ro' ? 'Contor' : 'Counter' },
     { href: '/companion', label: tr.companion },
     { href: '/journal', label: tr.journal },
     { href: '/guide', label: tr.guide },
@@ -20,11 +21,8 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
       <Link href="/home" className="nav-brand">NoBet</Link>
       <div className="nav-links">
         {items.map(item => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`nav-item ${path === item.href ? 'active' : ''}`}
-          >
+          <Link key={item.href} href={item.href}
+            className={`nav-item ${path === item.href ? 'active' : ''}`}>
             {item.label}
           </Link>
         ))}

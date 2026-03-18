@@ -51,30 +51,40 @@ export default function CompanionPage() {
     <>
       <Nav lang={lang} onLangChange={setLang} />
       <div style={{
-        display: 'flex', flexDirection: 'column',
+        display: 'flex',
+        flexDirection: 'column',
         height: 'calc(100vh - 56px)',
-        maxWidth: 560, margin: '0 auto',
+        maxWidth: 640,
+        margin: '0 auto',
       }}>
         {/* Sub-header */}
         <div style={{
-          padding: '1rem 1.5rem',
+          padding: '0.875rem 1.5rem',
           borderBottom: '1px solid var(--border)',
           background: 'var(--surface)',
+          flexShrink: 0,
         }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text3)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--text3)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
             {tr.subtitle}
           </div>
         </div>
 
-        {/* Messages */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {/* Messages — flex-grow fills space, scrollable */}
+        <div style={{
+          flex: 1,
+          overflowY: 'auto',
+          padding: '1.25rem 1.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.875rem',
+        }}>
           {messages.map((m, i) => (
             <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
               <div style={{
-                maxWidth: '80%',
+                maxWidth: '78%',
                 padding: '0.875rem 1.125rem',
                 borderRadius: m.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-                background: m.role === 'user' ? 'var(--anthracite)' : 'var(--surface)',
+                background: m.role === 'user' ? 'var(--accent)' : 'var(--surface)',
                 color: m.role === 'user' ? '#fff' : 'var(--text)',
                 border: m.role === 'assistant' ? '1px solid var(--border)' : 'none',
                 fontSize: '0.92rem',
@@ -98,12 +108,14 @@ export default function CompanionPage() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Input */}
+        {/* Input — fixed la bottom */}
         <div style={{
           padding: '1rem 1.5rem',
           background: 'var(--surface)',
           borderTop: '1px solid var(--border)',
-          display: 'flex', gap: '0.75rem',
+          display: 'flex',
+          gap: '0.75rem',
+          flexShrink: 0,
         }}>
           <input
             value={input}
@@ -118,17 +130,14 @@ export default function CompanionPage() {
               fontFamily: 'Inter, sans-serif',
             }}
           />
-          <button
-            onClick={send}
-            disabled={loading || !input.trim()}
+          <button onClick={send} disabled={loading || !input.trim()}
             style={{
               width: 42, height: 42, borderRadius: '8px',
-              background: input.trim() ? 'var(--anthracite)' : 'var(--surface2)',
+              background: input.trim() ? 'var(--accent)' : 'var(--surface2)',
               border: 'none', cursor: input.trim() ? 'pointer' : 'default',
               color: input.trim() ? '#fff' : 'var(--text3)',
               fontSize: '1rem', transition: 'all 0.2s', flexShrink: 0,
-            }}
-          >↑</button>
+            }}>↑</button>
         </div>
       </div>
     </>
