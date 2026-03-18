@@ -114,7 +114,7 @@ const questions = {
 }
 
 function getResult(answers: Answer[], lang: Lang) {
-  const score = answers.reduce((sum, a) => sum + (a ?? 0), 0)
+  const score = answers.reduce((sum: number, a) => sum + (a ?? 0), 0)
 
   if (lang === 'ro') {
     if (score <= 4) return {
