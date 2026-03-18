@@ -31,8 +31,6 @@ export default function ProgressPage() {
     if (journal) setJournalCount(JSON.parse(journal).length)
   }, [])
 
-  const saved = days * 50
-
   const last7 = Array.from({ length: 7 }, (_, i) => {
     const d = new Date()
     d.setDate(d.getDate() - (6 - i))
@@ -57,23 +55,20 @@ export default function ProgressPage() {
           </div>
         ) : (
           <>
-            {/* Stats */}
+            {/* Stats — fără bani */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.25rem' }}>
-              {[
-                { value: days, label: tr.daysLabel },
-                { value: `${saved >= 1000 ? (saved/1000).toFixed(1)+'k' : saved} RON`, label: tr.savedLabel },
-                { value: days, label: tr.streakLabel },
-                { value: journalCount, label: tr.journalLabel },
-              ].map((stat, i) => (
-                <div key={i} className="card" style={{ textAlign: 'center', padding: '1.25rem' }}>
-                  <div style={{
-                    fontFamily: 'DM Serif Display, serif',
-                    fontSize: '2rem', fontWeight: 400,
-                    color: 'var(--anthracite)', marginBottom: '0.25rem',
-                  }}>{stat.value}</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text3)', letterSpacing: '0.5px' }}>{stat.label}</div>
-                </div>
-              ))}
+              <div className="card" style={{ textAlign: 'center', padding: '1.25rem' }}>
+                <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--accent)' }}>{days}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text3)', letterSpacing: '0.5px', marginTop: '0.25rem' }}>{tr.daysLabel}</div>
+              </div>
+              <div className="card" style={{ textAlign: 'center', padding: '1.25rem' }}>
+                <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--accent)' }}>{days}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text3)', letterSpacing: '0.5px', marginTop: '0.25rem' }}>{tr.streakLabel}</div>
+              </div>
+              <div className="card" style={{ textAlign: 'center', padding: '1.25rem', gridColumn: '1 / -1' }}>
+                <div style={{ fontFamily: 'DM Serif Display, serif', fontSize: '2.5rem', fontWeight: 400, color: 'var(--accent)' }}>{journalCount}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text3)', letterSpacing: '0.5px', marginTop: '0.25rem' }}>{tr.journalLabel}</div>
+              </div>
             </div>
 
             {/* Last 7 days */}
@@ -86,14 +81,11 @@ export default function ProgressPage() {
                   <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.375rem', flex: 1 }}>
                     <div style={{
                       width: '100%', height: 44, borderRadius: '6px',
-                      background: day.free ? 'var(--anthracite)' : 'var(--surface2)',
+                      background: day.free ? 'var(--accent)' : 'var(--surface2)',
                       border: `1px solid ${day.free ? 'transparent' : 'var(--border)'}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '0.7rem',
-                      color: day.free ? 'rgba(255,255,255,0.7)' : 'var(--text3)',
-                    }}>
-                      {day.free ? '✓' : '·'}
-                    </div>
+                      fontSize: '0.7rem', color: day.free ? 'rgba(255,255,255,0.7)' : 'var(--text3)',
+                    }}>{day.free ? '✓' : '·'}</div>
                     <span style={{ fontSize: '0.65rem', color: 'var(--text3)' }}>{day.label}</span>
                   </div>
                 ))}
@@ -109,17 +101,11 @@ export default function ProgressPage() {
               const pct = Math.min(100, (days / m.days) * 100)
               return (
                 <div key={m.days} className="card" style={{
-                  padding: '0.875rem 1.125rem',
-                  position: 'relative', overflow: 'hidden',
-                  background: reached ? 'var(--anthracite)' : 'var(--surface)',
-                  border: `1px solid ${reached ? 'var(--anthracite)' : 'var(--border)'}`,
+                  padding: '0.875rem 1.125rem', position: 'relative', overflow: 'hidden',
+                  background: reached ? 'var(--accent)' : 'var(--surface)',
+                  border: `1px solid ${reached ? 'var(--accent)' : 'var(--border)'}`,
                 }}>
-                  {!reached && (
-                    <div style={{
-                      position: 'absolute', left: 0, top: 0, bottom: 0,
-                      width: `${pct}%`, background: 'var(--surface2)',
-                    }} />
-                  )}
+                  {!reached && <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${pct}%`, background: 'var(--accent-light)' }} />}
                   <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <span style={{ fontSize: '0.75rem', color: reached ? 'rgba(255,255,255,0.5)' : 'var(--text3)', minWidth: 28, fontWeight: 600 }}>
                       {reached ? '✓' : m.days}

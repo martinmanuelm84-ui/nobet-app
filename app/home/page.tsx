@@ -16,15 +16,15 @@ export default function HomePage() {
   useEffect(() => { localStorage.setItem('nobet_lang', lang) }, [lang])
 
   const features = lang === 'ro' ? [
-    'Monitorizare zilnică a progresului',
-    'Antrenor personal gata să te ajute',
-    'Jurnal privat pentru momentele dificile',
-    'Ghid practic bazat pe experiență reală',
+    { label: 'Monitorizare zilnică', href: '/contor' },
+    { label: 'Antrenor personal', href: '/companion' },
+    { label: 'Jurnal privat', href: '/journal' },
+    { label: 'Ghid practic', href: '/guide' },
   ] : [
-    'Daily progress tracking',
-    'Personal coach ready to help',
-    'Private journal for difficult moments',
-    'Practical guide based on real experience',
+    { label: 'Daily tracking', href: '/contor' },
+    { label: 'Personal coach', href: '/companion' },
+    { label: 'Private journal', href: '/journal' },
+    { label: 'Practical guide', href: '/guide' },
   ]
 
   return (
@@ -55,19 +55,14 @@ export default function HomePage() {
             </h1>
 
             <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.75, marginBottom: '0.5rem' }}>
-              {lang === 'ro'
-                ? 'Nu e despre scuze. E despre ce faci de aici înainte.'
-                : "It's not about excuses. It's about what you do from here."}
+              {lang === 'ro' ? 'Nu e despre scuze. E despre ce faci de aici înainte.' : "It's not about excuses. It's about what you do from here."}
             </p>
             <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.75, marginBottom: '2rem' }}>
               {lang === 'ro' ? 'Începi de aici.' : 'You start here.'}
             </p>
 
-            <button
-              className="btn-primary"
-              style={{ maxWidth: 220, marginBottom: '0.75rem' }}
-              onClick={() => router.push('/contor')}
-            >
+            <button className="btn-primary" style={{ maxWidth: 220, marginBottom: '0.75rem' }}
+              onClick={() => router.push('/contor')}>
               {lang === 'ro' ? 'Încep de azi' : 'I start today'}
             </button>
 
@@ -120,52 +115,43 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Social proof */}
-        <div style={{
-          background: 'var(--surface)',
-          border: '1px solid var(--border)',
-          borderRadius: '12px',
-          padding: '1.25rem 1.5rem',
-          marginBottom: '2rem',
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: '1rem',
-        }}>
-          <div style={{ fontSize: '1.5rem', flexShrink: 0 }}>💬</div>
-          <div>
-            <p style={{ fontSize: '0.92rem', color: 'var(--text2)', lineHeight: 1.7, fontStyle: 'italic', marginBottom: '0.5rem' }}>
-              {lang === 'ro'
-                ? '"Am folosit NoBet în primele 30 de zile. Nu e magic, dar e acolo când ai nevoie. Atât mi-a trebuit."'
-                : '"I used NoBet in the first 30 days. It\'s not magic, but it\'s there when you need it. That\'s all I needed."'}
-            </p>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text3)' }}>
-              {lang === 'ro' ? '— Utilizator anonim · 47 de zile libere' : '— Anonymous user · 47 free days'}
-            </div>
-          </div>
-        </div>
-
         {/* Divider */}
         <div style={{ height: 1, background: 'var(--border)', marginBottom: '2rem' }} />
 
-        {/* Features */}
+        {/* Features — linkuri reale */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '1.25rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '0.75rem',
           paddingBottom: '3rem',
         }}>
           {features.map((f, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.875rem', padding: '0.5rem 0' }}>
+            <a key={i} href={f.href} style={{
+              display: 'flex', alignItems: 'center', gap: '0.875rem',
+              padding: '1rem 1.125rem',
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              color: 'var(--text2)',
+              fontSize: '0.9rem',
+              transition: 'all 0.15s',
+              cursor: 'pointer',
+            }}
+            onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'; (e.currentTarget as HTMLElement).style.color = 'var(--accent)' }}
+            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'; (e.currentTarget as HTMLElement).style.color = 'var(--text2)' }}
+            >
               <div style={{
-                width: 28, height: 28, borderRadius: '50%', background: 'var(--accent)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem',
+                width: 26, height: 26, borderRadius: '50%', background: 'var(--accent)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
               }}>
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                   <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <span style={{ fontSize: '0.92rem', color: 'var(--text2)', lineHeight: 1.55 }}>{f}</span>
-            </div>
+              <span>{f.label}</span>
+              <span style={{ marginLeft: 'auto', opacity: 0.4, fontSize: '0.8rem' }}>→</span>
+            </a>
           ))}
         </div>
       </div>
