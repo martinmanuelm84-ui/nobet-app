@@ -1,77 +1,186 @@
-'use client';
-import { useState, useRef, useEffect } from 'react';
+'use client'
+import { useState, useEffect, useRef } from 'react'
+import Nav from '@/components/Nav'
+import { Lang, t } from '@/lib/i18n'
 
-export default function Companion() {
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Bună. Sunt un AI — dar unul care știe cum e, pentru că am fost construit pe experiența cuiva care a trecut prin asta. Poți să-mi spui orice, fără să te gândești cum sună.' }
-  ]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
+type Message = { role: 'user' | 'assistant'; content: string }
+
+const SYSTEM = `Ești un companion cald și empatic pentru cineva care se recuperează din dependența de jocuri de noroc. Ai fost creat pe baza experienței reale a cuiva care a trecut prin asta și s-a recuperat. Vorbești simplu, direct, fără judecată. Nu ești terapeut — ești un prieten care înțelege. Răspunzi scurt (2-4 propoziții), cald, și întotdeauna în aceeași limbă în care ți se vorbește. Nu dai sfaturi nesolicitate. Nu moralizezi. Ești prezent, nu predicativ.`
+
+export default function CompanionPage() {
+  const [lang, setLang] = useState<Lang>('ro')
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const bottomRef = useRef<HTMLDivElement>(null)
+  const tr = t[lang].companion
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    const savedLang = localStorage.getItem('nobet_lang') as Lang
+    if (savedLang) setLang(savedLang)
+    setMessages([{ role: 'assistant', content: tr.welcome }])
+  }, [])
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages, loading])
 
   async function send() {
-    if (!input.trim() || loading) return;
-    const userMsg = { role: 'user', content: input };
-    const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
-    setInput('');
-    setLoading(true);
+    if (!input.trim() || loading) return
+    const userMsg = input.trim()
+    setInput('')
+    const newMessages: Message[] = [...messages, { role: 'user', content: userMsg }]
+    setMessages(newMessages)
+    setLoading(true)
+
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: newMessages }),
-      });
-      const data = await res.json();
-      setMessages([...newMessages, { role: 'assistant', content: data.reply }]);
+        body: JSON.stringify({ messages: newMessages, system: SYSTEM }),
+      })
+      const data = await res.json()
+      setMessages([...newMessages, { role: 'assistant', content: data.content }])
     } catch {
-      setMessages([...newMessages, { role: 'assistant', content: 'A apărut o eroare. Încearcă din nou.' }]);
+      setMessages([...newMessages, { role: 'assistant', content: '...' }])
+    } finally {
+      setLoading(false)
     }
-    setLoading(false);
   }
 
   return (
-    <div style={{ maxWidth: 580, margin: '0 auto', height: '100vh', display: 'flex', flexDirection: 'column', background: '#F4F1EB' }}>
-      <div style={{ background: '#1B2B4B', padding: '1rem 1.3rem', display: 'flex', alignItems: 'center', gap: 12 }}>
-        <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#2A9D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 18 }}>C</div>
-        <div>
-          <div style={{ color: '#fff', fontWeight: 500, fontSize: 14 }}>Companion</div>
-          <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11 }}>Am trecut prin asta. Acum am antrenat un AI cu tot ce știu.</div>
+    <>
+      <div style={{ display: 'flex', flexDirection: 'column', height: `calc(100vh - var(--nav-h))`, maxWidth: 480, margin: '0 auto' }}>
+        {/* Header */}
+        <div style={{
+          padding: '1rem 1.25rem',
+          background: 'var(--surface)',
+          borderBottom: '1px solid var(--border)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexShrink: 0,
+        }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{
+                width: 40, height: 40, borderRadius: '50%',
+                background: 'var(--accent)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.1rem',
+              }}>💚</div>
+              <div>
+                <div style={{ fontWeight: 500, fontSize: '0.95rem' }}>{tr.title}</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text3)' }}>{tr.subtitle}</div>
+              </div>
+            </div>
+          </div>
+          <div className="lang-switch">
+            <button className={`lang-btn ${lang === 'ro' ? 'active' : ''}`} onClick={() => setLang('ro')}>RO</button>
+            <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          {messages.map((m, i) => (
+            <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
+              {m.role === 'assistant' && (
+                <div style={{
+                  width: 28, height: 28, borderRadius: '50%',
+                  background: 'var(--accent)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.85rem', marginRight: '0.5rem', flexShrink: 0, alignSelf: 'flex-end',
+                }}>💚</div>
+              )}
+              <div style={{
+                maxWidth: '78%',
+                padding: '0.75rem 1rem',
+                borderRadius: m.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                background: m.role === 'user' ? 'var(--accent)' : 'var(--surface)',
+                color: m.role === 'user' ? '#fff' : 'var(--text)',
+                border: m.role === 'assistant' ? '1px solid var(--border)' : 'none',
+                fontSize: '0.92rem',
+                lineHeight: 1.55,
+              }}>
+                {m.content}
+              </div>
+              {m.role === 'user' && (
+                <div style={{
+                  width: 28, height: 28, borderRadius: '50%',
+                  background: 'var(--surface2)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.85rem', marginLeft: '0.5rem', flexShrink: 0, alignSelf: 'flex-end',
+                }}>Tu</div>
+              )}
+            </div>
+          ))}
+          {loading && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{
+                width: 28, height: 28, borderRadius: '50%',
+                background: 'var(--accent)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '0.85rem',
+              }}>💚</div>
+              <div style={{
+                padding: '0.75rem 1rem',
+                background: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: '18px 18px 18px 4px',
+                fontSize: '0.88rem',
+                color: 'var(--text3)',
+              }}>{tr.thinking}</div>
+            </div>
+          )}
+          <div ref={bottomRef} />
+        </div>
+
+        {/* Input */}
+        <div style={{
+          padding: '0.875rem 1.25rem',
+          background: 'var(--surface)',
+          borderTop: '1px solid var(--border)',
+          display: 'flex',
+          gap: '0.625rem',
+          flexShrink: 0,
+        }}>
+          <input
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && !e.shiftKey && send()}
+            placeholder={tr.placeholder}
+            style={{
+              flex: 1,
+              padding: '0.75rem 1rem',
+              border: '1px solid var(--border)',
+              borderRadius: '12px',
+              fontSize: '0.92rem',
+              background: 'var(--bg)',
+              color: 'var(--text)',
+              outline: 'none',
+              fontFamily: 'Inter, sans-serif',
+            }}
+          />
+          <button
+            onClick={send}
+            disabled={loading || !input.trim()}
+            style={{
+              width: 44, height: 44,
+              borderRadius: '12px',
+              background: input.trim() ? 'var(--accent)' : 'var(--surface2)',
+              border: 'none',
+              cursor: input.trim() ? 'pointer' : 'default',
+              fontSize: '1.1rem',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.2s',
+              flexShrink: 0,
+            }}
+          >↑</button>
         </div>
       </div>
-      <div style={{ flex: 1, overflowY: 'auto', padding: '1.2rem', display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {messages.map((m, i) => (
-          <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-end', flexDirection: m.role === 'user' ? 'row-reverse' : 'row' }}>
-            <div style={{ width: 28, height: 28, borderRadius: '50%', background: m.role === 'user' ? '#1B2B4B' : '#2A9D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, flexShrink: 0 }}>
-              {m.role === 'user' ? 'Tu' : 'AI'}
-            </div>
-            <div style={{ maxWidth: '78%', padding: '10px 14px', borderRadius: m.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px', background: m.role === 'user' ? '#1B2B4B' : '#fff', color: m.role === 'user' ? '#fff' : '#1B2B4B', fontSize: 14, lineHeight: 1.6 }}>
-              {m.content}
-            </div>
-          </div>
-        ))}
-        {loading && (
-          <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
-            <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#2A9D8F', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11 }}>AI</div>
-            <div style={{ padding: '10px 14px', borderRadius: '14px 14px 14px 4px', background: '#fff', fontSize: 14, color: '#5A6A8A' }}>...</div>
-          </div>
-        )}
-        <div ref={endRef} />
-      </div>
-      <div style={{ padding: '0.8rem', borderTop: '1px solid #E8E3D9', display: 'flex', gap: 8, background: '#fff' }}>
-        <input
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && send()}
-          placeholder="Scrie ceva..."
-          style={{ flex: 1, border: '1.5px solid #E8E3D9', borderRadius: 12, padding: '9px 12px', fontSize: 14, outline: 'none', background: '#F4F1EB' }}
-        />
-        <button onClick={send} disabled={loading || !input.trim()} style={{ width: 38, height: 38, borderRadius: '50%', background: '#2A9D8F', border: 'none', cursor: 'pointer', color: '#fff', fontSize: 18 }}>↑</button>
-      </div>
-    </div>
-  );
+
+      <Nav lang={lang} onLangChange={setLang} />
+    </>
+  )
 }
