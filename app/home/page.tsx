@@ -38,7 +38,7 @@ export default function HomePage() {
           gridTemplateColumns: '1fr 1fr',
           gap: '3rem',
           alignItems: 'center',
-          minHeight: 'calc(80vh - 56px)',
+          minHeight: 'calc(85vh - 56px)',
           paddingTop: '2rem',
         }}>
           {/* Left */}
@@ -53,17 +53,25 @@ export default function HomePage() {
                 ? <>Dacă ai ajuns aici,<br />probabil știi deja că<br />ceva trebuie să se schimbe.</>
                 : <>If you're here,<br />you probably already know<br />something needs to change.</>}
             </h1>
+
             <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.75, marginBottom: '0.5rem' }}>
-              {lang === 'ro' ? 'Nu ești aici pentru scuze. Ești aici pentru soluții.' : "You're not here for excuses. You're here for solutions."}
+              {lang === 'ro'
+                ? 'Nu e despre scuze. E despre ce faci de aici înainte.'
+                : "It's not about excuses. It's about what you do from here."}
             </p>
             <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.75, marginBottom: '2rem' }}>
-              {lang === 'ro' ? 'Iar noi suntem aici să te ajutăm să le găsești.' : "And we're here to help you find them."}
+              {lang === 'ro' ? 'Începi de aici.' : 'You start here.'}
             </p>
-            <button className="btn-primary" style={{ maxWidth: 220, marginBottom: '0.75rem' }}
-              onClick={() => router.push('/contor')}>
-              {lang === 'ro' ? 'Începe acum' : 'Start now'}
+
+            <button
+              className="btn-primary"
+              style={{ maxWidth: 220, marginBottom: '0.75rem' }}
+              onClick={() => router.push('/contor')}
+            >
+              {lang === 'ro' ? 'Încep de azi' : 'I start today'}
             </button>
-            <div style={{ fontSize: '0.78rem', color: 'var(--text3)' }}>
+
+            <div style={{ fontSize: '0.82rem', color: '#8a8a8a', fontStyle: 'italic' }}>
               {lang === 'ro' ? 'Gratuit. Fără cont.' : 'Free. No account needed.'}
             </div>
           </div>
@@ -112,22 +120,51 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Social proof */}
+        <div style={{
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
+          borderRadius: '12px',
+          padding: '1.25rem 1.5rem',
+          marginBottom: '2rem',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '1rem',
+        }}>
+          <div style={{ fontSize: '1.5rem', flexShrink: 0 }}>💬</div>
+          <div>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text2)', lineHeight: 1.7, fontStyle: 'italic', marginBottom: '0.5rem' }}>
+              {lang === 'ro'
+                ? '"Am folosit NoBet în primele 30 de zile. Nu e magic, dar e acolo când ai nevoie. Atât mi-a trebuit."'
+                : '"I used NoBet in the first 30 days. It\'s not magic, but it\'s there when you need it. That\'s all I needed."'}
+            </p>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text3)' }}>
+              {lang === 'ro' ? '— Utilizator anonim · 47 de zile libere' : '— Anonymous user · 47 free days'}
+            </div>
+          </div>
+        </div>
+
         {/* Divider */}
-        <div style={{ height: 1, background: 'var(--border)', margin: '0 0 2.5rem' }} />
+        <div style={{ height: 1, background: 'var(--border)', marginBottom: '2rem' }} />
 
         {/* Features */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', paddingBottom: '3rem' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.25rem',
+          paddingBottom: '3rem',
+        }}>
           {features.map((f, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.875rem', padding: '0.5rem 0' }}>
               <div style={{
                 width: 28, height: 28, borderRadius: '50%', background: 'var(--accent)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem',
               }}>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <span style={{ fontSize: '0.92rem', color: 'var(--text2)' }}>{f}</span>
+              <span style={{ fontSize: '0.92rem', color: 'var(--text2)', lineHeight: 1.55 }}>{f}</span>
             </div>
           ))}
         </div>

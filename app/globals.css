@@ -22,11 +22,11 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100%;
-  padding-top: var(--nav-h);
+
 }
 
 .top-nav {
-  position: fixed;
+  position: sticky;
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
   background: var(--accent);
