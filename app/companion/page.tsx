@@ -50,34 +50,10 @@ export default function CompanionPage() {
   return (
     <>
       <Nav lang={lang} onLangChange={setLang} />
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: 'calc(100vh - 56px)',
-        maxWidth: 640,
-        margin: '0 auto',
-      }}>
-        {/* Sub-header */}
-        <div style={{
-          padding: '0.875rem 1.5rem',
-          borderBottom: '1px solid var(--border)',
-          background: 'var(--surface)',
-          flexShrink: 0,
-        }}>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text3)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-            {tr.subtitle}
-          </div>
-        </div>
+      <div className="chat-wrap">
+        <div className="chat-subheader">{tr.subtitle}</div>
 
-        {/* Messages — flex-grow fills space, scrollable */}
-        <div style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '1.25rem 1.5rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.875rem',
-        }}>
+        <div className="chat-messages">
           {messages.map((m, i) => (
             <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start' }}>
               <div style={{
@@ -108,15 +84,7 @@ export default function CompanionPage() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Input — fixed la bottom */}
-        <div style={{
-          padding: '1rem 1.5rem',
-          background: 'var(--surface)',
-          borderTop: '1px solid var(--border)',
-          display: 'flex',
-          gap: '0.75rem',
-          flexShrink: 0,
-        }}>
+        <div className="chat-input-bar">
           <input
             value={input}
             onChange={e => setInput(e.target.value)}
