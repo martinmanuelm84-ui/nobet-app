@@ -12,9 +12,9 @@ export default function HomePage() {
   const tr = t[lang].home
 
   useEffect(() => {
-    const saved = localStorage.getItem('nobet_start')
     const savedLang = localStorage.getItem('nobet_lang') as Lang
     if (savedLang) setLang(savedLang)
+    const saved = localStorage.getItem('nobet_start')
     if (saved) { setStartDate(saved); calcDays(saved) }
   }, [])
 
@@ -46,72 +46,82 @@ export default function HomePage() {
     <>
       <Nav lang={lang} onLangChange={setLang} />
       <div className="page">
-
         {!startDate ? (
-          /* ── STARE INIȚIALĂ ── */
-          <div style={{ paddingTop: '3rem' }}>
-            <div style={{
-              fontSize: '0.7rem', letterSpacing: '2.5px', textTransform: 'uppercase',
-              color: 'var(--text3)', marginBottom: '1.25rem'
-            }}>NoBet</div>
-
+          <div style={{ paddingTop: '2.5rem' }}>
+            {/* Hero text */}
             <h1 style={{
               fontFamily: 'DM Serif Display, serif',
-              fontSize: 'clamp(2rem, 6vw, 2.75rem)',
+              fontSize: 'clamp(1.75rem, 5vw, 2.5rem)',
               fontWeight: 400,
-              lineHeight: 1.2,
+              lineHeight: 1.25,
               color: 'var(--text)',
               marginBottom: '1.5rem',
-              maxWidth: 420,
+              maxWidth: 460,
             }}>
               {lang === 'ro'
-                ? 'Poate te putem ajuta.'
-                : 'We might be able to help.'}
+                ? 'Dacă ai ajuns aici, probabil știi deja că ceva trebuie să se schimbe.'
+                : "If you're here, you probably already know something needs to change."}
             </h1>
 
-            <p style={{
-              fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.7,
-              maxWidth: 400, marginBottom: '2.5rem'
-            }}>
-              {lang === 'ro'
-                ? 'Nu e o aplicație care să îți explice că ai o problemă. Știi asta deja. E un instrument simplu pentru zilele în care ai nevoie de ceva concret.'
-                : "This isn't an app that explains you have a problem. You already know that. It's a simple tool for the days when you need something concrete."}
-            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2.5rem', maxWidth: 460 }}>
+              <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.7 }}>
+                {lang === 'ro'
+                  ? 'Nu ești aici pentru scuze. Ești aici pentru soluții.'
+                  : "You're not here for excuses. You're here for solutions."}
+              </p>
+              <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.7 }}>
+                {lang === 'ro'
+                  ? 'Iar noi suntem aici să te ajutăm să le găsești.'
+                  : "And we're here to help you find them."}
+              </p>
+            </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '3rem', maxWidth: 400 }}>
-              {[
-                { icon: '◎', text: lang === 'ro' ? 'Contor de zile — simplu și clar' : 'Day counter — simple and clear' },
-                { icon: '◈', text: lang === 'ro' ? 'Companion AI disponibil oricând' : 'AI Companion available anytime' },
-                { icon: '◻', text: lang === 'ro' ? 'Jurnal privat, doar al tău' : 'Private journal, yours alone' },
-              ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
-                  <span style={{ color: 'var(--text3)', fontSize: '1rem', width: 20, textAlign: 'center' }}>{item.icon}</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text2)' }}>{item.text}</span>
+            {/* What you get */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', marginBottom: '2.5rem', maxWidth: 420 }}>
+              {(lang === 'ro' ? [
+                'Contor de zile — simplu și clar',
+                'Antrenor AI disponibil oricând',
+                'Jurnal privat, doar al tău',
+                'Ghid practic bazat pe experiență reală',
+              ] : [
+                'Day counter — simple and clear',
+                'AI Coach available anytime',
+                'Private journal, yours alone',
+                'Practical guide based on real experience',
+              ]).map((item, i) => (
+                <div key={i} style={{
+                  display: 'flex', alignItems: 'center', gap: '0.875rem',
+                  padding: '0.75rem 1rem',
+                  background: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '8px',
+                }}>
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0 }} />
+                  <span style={{ fontSize: '0.88rem', color: 'var(--text2)' }}>{item}</span>
                 </div>
               ))}
             </div>
 
-            <button className="btn-primary" style={{ maxWidth: 400 }} onClick={handleStart}>
+            <button className="btn-primary" style={{ maxWidth: 420 }} onClick={handleStart}>
               {tr.startBtn}
             </button>
           </div>
 
         ) : (
-          /* ── STARE ACTIVĂ ── */
           <div style={{ paddingTop: '2rem' }}>
             {/* Counter */}
             <div style={{ marginBottom: '2.5rem' }}>
               <div style={{
-                fontSize: '0.7rem', letterSpacing: '2.5px', textTransform: 'uppercase',
-                color: 'var(--text3)', marginBottom: '1rem'
+                fontSize: '0.7rem', letterSpacing: '2px', textTransform: 'uppercase',
+                color: 'var(--text3)', marginBottom: '0.875rem',
               }}>
                 {lang === 'ro' ? 'Zile fără jocuri de noroc' : 'Days free from gambling'}
               </div>
               <div style={{
                 fontFamily: 'DM Serif Display, serif',
-                fontSize: 'clamp(4.5rem, 18vw, 7rem)',
+                fontSize: 'clamp(5rem, 20vw, 7.5rem)',
                 fontWeight: 400,
-                color: 'var(--anthracite)',
+                color: 'var(--accent)',
                 lineHeight: 1,
                 marginBottom: '0.5rem',
               }}>{days}</div>
@@ -126,7 +136,7 @@ export default function HomePage() {
             {/* Milestones */}
             <div style={{
               fontSize: '0.7rem', letterSpacing: '2px', textTransform: 'uppercase',
-              color: 'var(--text3)', marginBottom: '0.875rem'
+              color: 'var(--text3)', marginBottom: '0.875rem',
             }}>{tr.milestones}</div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2rem' }}>
@@ -137,25 +147,23 @@ export default function HomePage() {
                   <div key={m} style={{
                     display: 'flex', alignItems: 'center', gap: '1rem',
                     padding: '0.875rem 1rem',
-                    background: reached ? 'var(--anthracite)' : 'var(--surface)',
-                    border: `1px solid ${reached ? 'var(--anthracite)' : 'var(--border)'}`,
+                    background: reached ? 'var(--accent)' : 'var(--surface)',
+                    border: `1px solid ${reached ? 'var(--accent)' : 'var(--border)'}`,
                     borderRadius: '8px',
+                    position: 'relative', overflow: 'hidden',
                     transition: 'all 0.3s',
-                    position: 'relative',
-                    overflow: 'hidden',
                   }}>
                     {!reached && (
                       <div style={{
                         position: 'absolute', left: 0, top: 0, bottom: 0,
-                        width: `${pct}%`, background: 'var(--surface2)',
+                        width: `${pct}%`, background: 'var(--accent-light)',
                         transition: 'width 0.5s',
                       }} />
                     )}
                     <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '1rem', width: '100%' }}>
                       <span style={{
-                        fontSize: '0.75rem', fontWeight: 600,
-                        color: reached ? 'rgba(255,255,255,0.5)' : 'var(--text3)',
-                        minWidth: 28,
+                        fontSize: '0.75rem', fontWeight: 600, minWidth: 28,
+                        color: reached ? 'rgba(255,255,255,0.6)' : 'var(--text3)',
                       }}>{reached ? '✓' : m >= 365 ? '365' : m}</span>
                       <span style={{
                         fontSize: '0.88rem',

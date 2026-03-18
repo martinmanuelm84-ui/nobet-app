@@ -8,9 +8,9 @@
   --text: #1a1a1a;
   --text2: #6b6b6b;
   --text3: #a0a0a0;
-  --anthracite: #2b2d2f;
-  --accent: #2b2d2f;
-  --accent-light: #f0efed;
+  --accent: #2a7a4b;
+  --accent-light: #eaf5ee;
+  --accent-dark: #1e5c38;
   --nav-h: 56px;
 }
 
@@ -29,7 +29,7 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
-  background: var(--anthracite);
+  background: var(--accent);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,7 +39,7 @@ body {
 
 .nav-brand {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #fff;
   letter-spacing: 0.5px;
   text-decoration: none;
@@ -54,22 +54,20 @@ body {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
   text-decoration: none;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
   font-size: 0.8rem;
   font-weight: 400;
   padding: 0.45rem 0.875rem;
   border-radius: 6px;
   transition: all 0.15s;
 }
-.nav-item:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.07); }
-.nav-item.active { color: #fff; background: rgba(255,255,255,0.12); }
-.nav-item .nav-icon { font-size: 0.9rem; }
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.12); }
+.nav-item.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 500; }
 
 .lang-switch {
   display: flex;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 6px;
   overflow: hidden;
   margin-left: 1rem;
@@ -81,12 +79,12 @@ body {
   font-size: 0.72rem;
   font-weight: 500;
   cursor: pointer;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.5);
   transition: all 0.15s;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.5px;
 }
-.lang-btn.active { background: rgba(255,255,255,0.15); color: #fff; }
+.lang-btn.active { background: rgba(255,255,255,0.2); color: #fff; }
 
 .page {
   max-width: 560px;
@@ -115,8 +113,8 @@ body {
 
 .btn-primary {
   width: 100%;
-  padding: 0.875rem;
-  background: var(--anthracite);
+  padding: 0.9rem;
+  background: var(--accent);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -127,7 +125,7 @@ body {
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.3px;
 }
-.btn-primary:hover { opacity: 0.85; }
+.btn-primary:hover { opacity: 0.88; }
 
 .btn-secondary {
   width: 100%;
@@ -141,7 +139,7 @@ body {
   transition: all 0.2s;
   font-family: 'Inter', sans-serif;
 }
-.btn-secondary:hover { border-color: var(--anthracite); color: var(--anthracite); }
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
 .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
 
