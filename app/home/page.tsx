@@ -174,7 +174,7 @@ export default function HomePage() {
             <p className="crisis-text">
               {lang === 'ro' ? 'Dacă simți că nu mai poți, poți suna acum. Nu ești singur.' : "If you feel you can't go on, you can call now. You're not alone."}<br /><br />
               <strong>{lang === 'ro' ? 'Telefon criză:' : 'Crisis line:'}</strong> <a href="tel:0800070070">0800 070 070</a> ({lang === 'ro' ? 'gratuit, 24/7' : 'free, 24/7'})<br />
-              <strong>{lang === 'ro' ? 'Jucători Anonimi:' : 'Gamblers Anonymous:'}</strong> <a href="https://www.jaromania.ro" target="_blank" rel="noopener noreferrer">www.jaromania.ro</a>
+              <strong>{lang === 'ro' ? 'Jucători Anonimi:' : 'Gamblers Anonymous:'}</strong> <a href="https://jucatorianonimi.ro" target="_blank" rel="noopener noreferrer">jucatorianonimi.ro</a>
             </p>
           </div>
         </div>
