@@ -8,7 +8,7 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
 
   const items = [
     { href: '/home', label: lang === 'ro' ? 'Acasă' : 'Home' },
-    { href: '/companion', label: lang === 'ro' ? 'Antrenor' : 'Coach' },
+    { href: '/companion', label: lang === 'ro' ? 'Suport' : 'Support' },
     { href: '/jocuri', label: lang === 'ro' ? 'Jocuri' : 'Games' },
     { href: '/journal', label: lang === 'ro' ? 'Jurnal' : 'Journal' },
     { href: '/progress', label: lang === 'ro' ? 'Progres' : 'Progress' },
