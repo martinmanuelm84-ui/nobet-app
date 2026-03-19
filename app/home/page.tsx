@@ -1,160 +1,87 @@
 'use client'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Nav from '@/components/Nav'
-import { Lang } from '@/lib/i18n'
+
+import Link from 'next/link'
+import { useState } from 'react'
 
 export default function HomePage() {
-  const [lang, setLang] = useState<Lang>('ro')
-  const router = useRouter()
-
-  useEffect(() => {
-    const savedLang = localStorage.getItem('nobet_lang') as Lang
-    if (savedLang) setLang(savedLang)
-  }, [])
-
-  useEffect(() => { localStorage.setItem('nobet_lang', lang) }, [lang])
-
-  const features = lang === 'ro' ? [
-    { label: 'Monitorizare zilnică', href: '/contor' },
-    { label: 'Antrenor personal', href: '/companion' },
-    { label: 'Jurnal privat', href: '/journal' },
-    { label: 'Ghid practic', href: '/guide' },
-  ] : [
-    { label: 'Daily tracking', href: '/contor' },
-    { label: 'Personal coach', href: '/companion' },
-    { label: 'Private journal', href: '/journal' },
-    { label: 'Practical guide', href: '/guide' },
-  ]
+  const [lang, setLang] = useState<'RO' | 'EN'>('RO')
 
   return (
-    <>
-      <Nav lang={lang} onLangChange={setLang} />
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 1.5rem' }}>
+    <div style={{ fontFamily: "DM Sans, sans-serif", background: '#FDFAF7', color: '#1A1208', minHeight: '100vh' }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        .btn-primary { background: #C1501F; color: white; padding: 16px 36px; border-radius: 100px; font-size: 17px; font-weight: 500; text-decoration: none; display: inline-block; transition: background 0.2s; }
+        .btn-primary:hover { background: #8B3510; }
+        .game-card { background: white; border: 1px solid #EDE0D4; border-radius: 20px; padding: 32px 28px; text-decoration: none; color: inherit; display: block; transition: border-color 0.2s, transform 0.2s; }
+        .game-card:hover { border-color: #E8896A; transform: translateY(-3px); }
+      `}</style>
 
-        {/* HERO */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '3rem',
-          alignItems: 'center',
-          minHeight: 'calc(85vh - 56px)',
-          paddingTop: '2rem',
-        }}>
-          {/* Left */}
-          <div>
-            <h1 style={{
-              fontFamily: 'DM Serif Display, serif',
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
-              fontWeight: 400, lineHeight: 1.2,
-              color: 'var(--text)', marginBottom: '1.25rem',
-            }}>
-              {lang === 'ro'
-                ? <>Dacă ai ajuns aici,<br />probabil știi deja că<br />ceva trebuie să se schimbe.</>
-                : <>If you're here,<br />you probably already know<br />something needs to change.</>}
-            </h1>
-
-            <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.75, marginBottom: '0.5rem' }}>
-              {lang === 'ro' ? 'Nu e despre scuze. E despre ce faci de aici înainte.' : "It's not about excuses. It's about what you do from here."}
-            </p>
-            <p style={{ fontSize: '1rem', color: 'var(--text2)', lineHeight: 1.75, marginBottom: '2rem' }}>
-              {lang === 'ro' ? 'Începi de aici.' : 'You start here.'}
-            </p>
-
-            <button className="btn-primary" style={{ maxWidth: 220, marginBottom: '0.75rem' }}
-              onClick={() => router.push('/evaluare')}>
-              {lang === 'ro' ? 'Încep de azi' : 'I start today'}
-            </button>
-
-            <div style={{ fontSize: '0.82rem', color: '#8a8a8a', fontStyle: 'italic' }}>
-              {lang === 'ro' ? 'Gratuit. Fără cont.' : 'Free. No account needed.'}
-            </div>
-          </div>
-
-          {/* Right — SVG */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg viewBox="0 0 420 380" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', maxWidth: 400 }}>
-              <circle cx="210" cy="190" r="165" fill="#fdf0e8" />
-              <rect x="110" y="80" width="200" height="180" rx="12" fill="white" stroke="#f5d5bb" strokeWidth="1.5"/>
-              <rect x="110" y="80" width="200" height="40" rx="12" fill="#c95f1a"/>
-              <rect x="110" y="108" width="200" height="12" fill="#c95f1a"/>
-              <text x="210" y="107" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="13" fill="white">
-                {new Date().toLocaleDateString('ro-RO', { month: 'long', year: 'numeric' })}
-              </text>
-              {['L','M','M','J','V','S','D'].map((d, col) => (
-                <text key={col} x={127 + col * 27} y="140" textAnchor="middle" fontSize="9" fill="#a0a0a0" fontFamily="Inter, sans-serif">{d}</text>
-              ))}
-              {Array.from({length: 21}, (_, i) => {
-                const row = Math.floor(i / 7), col = i % 7
-                const x = 127 + col * 27, y = 162 + row * 27
-                return i < 12 ? (
-                  <g key={i}>
-                    <circle cx={x} cy={y} r="10" fill="#c95f1a" opacity="0.15"/>
-                    <text x={x} y={y + 4} textAnchor="middle" fontSize="11" fill="#c95f1a">✓</text>
-                  </g>
-                ) : (
-                  <text key={i} x={x} y={y + 4} textAnchor="middle" fontSize="10" fill="#d0d0d0" fontFamily="Inter, sans-serif">{i + 1}</text>
-                )
-              })}
-              <rect x="270" y="200" width="100" height="70" rx="12" fill="#c95f1a"/>
-              <text x="320" y="228" textAnchor="middle" fontFamily="DM Serif Display, serif" fontSize="28" fill="white">12</text>
-              <text x="320" y="262" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="8" fill="rgba(255,255,255,0.6)" letterSpacing="1">
-                {lang === 'ro' ? 'ZILE LIBERE' : 'FREE DAYS'}
-              </text>
-              <circle cx="90" cy="150" r="18" fill="white" stroke="#f5d5bb" strokeWidth="1.5"/>
-              <text x="90" y="155" textAnchor="middle" fontSize="14">📈</text>
-              <circle cx="340" cy="120" r="18" fill="white" stroke="#f5d5bb" strokeWidth="1.5"/>
-              <text x="340" y="125" textAnchor="middle" fontSize="14">💬</text>
-              <circle cx="80" cy="270" r="18" fill="white" stroke="#f5d5bb" strokeWidth="1.5"/>
-              <text x="80" y="275" textAnchor="middle" fontSize="14">📓</text>
-              <circle cx="350" cy="290" r="18" fill="white" stroke="#f5d5bb" strokeWidth="1.5"/>
-              <text x="350" y="295" textAnchor="middle" fontSize="14">🎯</text>
-              <rect x="130" y="295" width="160" height="8" rx="4" fill="#fdf0e8"/>
-              <rect x="130" y="295" width="96" height="8" rx="4" fill="#c95f1a"/>
-            </svg>
-          </div>
+      <nav style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(253,250,247,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #EDE0D4', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
+        <Link href="/home" style={{ fontFamily: 'Georgia, serif', fontWeight: 600, fontSize: 22, color: '#C1501F', textDecoration: 'none' }}>NoBet</Link>
+        <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+          <Link href="/companion" style={{ textDecoration: 'none', color: '#5C4A35', fontSize: 15 }}>Antrenor</Link>
+          <Link href="/jocuri" style={{ textDecoration: 'none', color: '#5C4A35', fontSize: 15 }}>Jocuri</Link>
+          <Link href="/journal" style={{ textDecoration: 'none', color: '#5C4A35', fontSize: 15 }}>Jurnal</Link>
+          <Link href="/progress" style={{ textDecoration: 'none', color: '#5C4A35', fontSize: 15 }}>Progres</Link>
+          <Link href="/evaluare" style={{ background: '#C1501F', color: 'white', padding: '9px 22px', borderRadius: 100, fontSize: 15, fontWeight: 500, textDecoration: 'none' }}>Încep de azi</Link>
         </div>
-
-        {/* Divider */}
-        <div style={{ height: 1, background: 'var(--border)', marginBottom: '2rem' }} />
-
-        {/* Features — linkuri reale */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '0.75rem',
-          paddingBottom: '3rem',
-        }}>
-          {features.map((f, i) => (
-            <a key={i} href={f.href} style={{
-              display: 'flex', alignItems: 'center', gap: '0.875rem',
-              padding: '1rem 1.125rem',
-              background: 'var(--surface)',
-              border: '1px solid var(--border)',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              color: 'var(--text2)',
-              fontSize: '0.9rem',
-              transition: 'all 0.15s',
-              cursor: 'pointer',
-            }}
-            onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'; (e.currentTarget as HTMLElement).style.color = 'var(--accent)' }}
-            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'; (e.currentTarget as HTMLElement).style.color = 'var(--text2)' }}
-            >
-              <div style={{
-                width: 26, height: 26, borderRadius: '50%', background: 'var(--accent)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              }}>
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <span>{f.label}</span>
-              <span style={{ marginLeft: 'auto', opacity: 0.4, fontSize: '0.8rem' }}>→</span>
-            </a>
+        <div style={{ display: 'flex', gap: 4 }}>
+          {(['RO','EN'] as const).map(l => (
+            <button key={l} onClick={() => setLang(l)} style={{ fontSize: 13, cursor: 'pointer', padding: '4px 8px', borderRadius: 6, border: lang === l ? '1px solid #C1501F' : '1px solid transparent', background: lang === l ? '#FAF0EB' : 'none', color: lang === l ? '#C1501F' : '#9B8470', fontFamily: 'inherit' }}>{l}</button>
           ))}
         </div>
+      </nav>
+
+      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '100px 40px 80px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center', minHeight: 'calc(100vh - 64px)' }}>
+        <div>
+          <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(36px, 5vw, 54px)', lineHeight: 1.15, fontWeight: 600, letterSpacing: -1, marginBottom: 28 }}>
+            Dacă ai ajuns aici, <em style={{ color: '#C1501F' }}>ceva s-a schimbat</em> deja în tine.
+          </h1>
+          <p style={{ fontSize: 18, color: '#5C4A35', lineHeight: 1.75, fontWeight: 300, marginBottom: 12 }}>Nu e despre voință. E despre a nu mai fi singur cu asta.</p>
+          <p style={{ fontSize: 18, color: '#5C4A35', lineHeight: 1.75, fontWeight: 300 }}>NoBet e locul în care poți să respiri, să vorbești, să câștigi — fără noroc.</p>
+          <div style={{ marginTop: 44, display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'flex-start' }}>
+            <Link href="/evaluare" className="btn-primary">Încep de azi</Link>
+            <span style={{ fontSize: 14, color: '#9B8470', fontStyle: 'italic' }}>Gratuit. Fără cont. Fără judecată.</span>
+          </div>
+        </div>
+        <div style={{ background: 'white', borderRadius: 24, padding: 32, border: '1px solid #EDE0D4' }}>
+          <div style={{ background: '#C1501F', color: 'white', borderRadius: 14, padding: '14px 20px', textAlign: 'center', fontWeight: 500, marginBottom: 20 }}>Martie 2026</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 6, textAlign: 'center', marginBottom: 16 }}>
+            {['L','M','M','J','V','S','D'].map((d,i) => <div key={i} style={{ fontSize: 11, color: '#9B8470', padding: '4px 0', textTransform: 'uppercase' }}>{d}</div>)}
+            {Array.from({length: 19}, (_,i) => (
+              <div key={i} style={{ width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, margin: '0 auto', background: i >= 5 ? '#FAF0EB' : 'transparent', color: i >= 5 ? '#C1501F' : '#5C4A35' }}>
+                {i >= 5 ? i - 4 : ''}
+              </div>
+            ))}
+          </div>
+          <div style={{ background: '#C1501F', color: 'white', borderRadius: 16, padding: '18px 24px', textAlign: 'center' }}>
+            <span style={{ fontFamily: 'Georgia, serif', fontSize: 52, fontWeight: 600, lineHeight: 1, display: 'block' }}>14</span>
+            <span style={{ fontSize: 12, opacity: 0.85, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: 4, display: 'block' }}>zile libere</span>
+          </div>
+        </div>
       </div>
-    </>
+
+      <div style={{ background: '#C1501F', padding: '80px 40px', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(20px, 3vw, 32px)', color: 'white', lineHeight: 1.5, fontStyle: 'italic', marginBottom: 24, maxWidth: 720, margin: '0 auto 24px' }}>
+          „Nu am jucat pentru că îmi plăcea să câștig. Am jucat ca să nu mai simt nimic. Când am înțeles asta, totul s-a schimbat."
+        </p>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)' }}>— Din cartea „100 de lei"</p>
+      </div>
+
+      <div style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center', padding: '100px 40px' }}>
+        <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(26px, 4vw, 42px)', lineHeight: 1.2, marginBottom: 20 }}>Fiecare zi fără jocuri de noroc este o victorie reală.</h2>
+        <p style={{ fontSize: 18, color: '#5C4A35', marginBottom: 40, fontWeight: 300 }}>Începe să le numeri. Noi suntem aici cu tine.</p>
+        <Link href="/evaluare" className="btn-primary">Începe astăzi — gratuit</Link>
+      </div>
+
+      <footer style={{ borderTop: '1px solid #EDE0D4', padding: 40, maxWidth: 1140, margin: '0 auto', display: 'flex', justifyContent: 'space-between', color: '#9B8470', fontSize: 14 }}>
+        <span>© 2026 NoBet. Cu grijă, pentru oameni.</span>
+        <div style={{ display: 'flex', gap: 24 }}>
+          <a href="#" style={{ color: '#9B8470', textDecoration: 'none' }}>Confidențialitate</a>
+          <a href="#" style={{ color: '#9B8470', textDecoration: 'none' }}>Contact</a>
+        </div>
+      </footer>
+    </div>
   )
 }
