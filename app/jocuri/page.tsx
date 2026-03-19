@@ -9,17 +9,17 @@ const GAMES = {
     { icon:'♟️', title:'Șah', desc:'Strategie pură contra calculatorului. Fiecare mutare contează.', tag:'Strategie', href:'/jocuri/sah', time:'10–30 min', ready:true },
     { icon:'🔢', title:'Sudoku', desc:'Completează grila 9×9. Trei dificultăți disponibile.', tag:'Logică', href:'/jocuri/sudoku', time:'5–15 min', ready:true },
     { icon:'🧩', title:'2048', desc:'Combină numerele și ajunge la 2048. Simplu de început, greu de oprit.', tag:'Concentrare', href:'/jocuri/2048', time:'5–20 min', ready:true },
-    { icon:'🔤', title:'Cuvântul zilei', desc:'Ghicește cuvântul ascuns în 6 încercări. Un joc nou în fiecare zi.', tag:'Vocabular', href:'/jocuri/cuvant', time:'3–5 min', ready:false },
-    { icon:'⬛', title:'Nonograme', desc:'Descoperă imaginea ascunsă rezolvând indicii numerice. Meditativ.', tag:'Răbdare', href:'/jocuri/nonograme', time:'10–20 min', ready:false },
-    { icon:'🃏', title:'Memorie', desc:'Găsește toate perechile. Antrenează-ți atenția și memoria.', tag:'Memorie', href:'/jocuri/memorie', time:'3–8 min', ready:false },
+    { icon:'🔤', title:'Cuvântul zilei', desc:'Ghicește cuvântul ascuns în 6 încercări. Un joc nou în fiecare zi.', tag:'Vocabular', href:'/jocuri/cuvant', time:'3–5 min', ready:true },
+    { icon:'⬛', title:'Nonograme', desc:'Descoperă imaginea ascunsă rezolvând indicii numerice. Meditativ.', tag:'Răbdare', href:'/jocuri/nonograme', time:'10–20 min', ready:true },
+    { icon:'🃏', title:'Memorie', desc:'Găsește toate perechile. Antrenează-ți atenția și memoria.', tag:'Memorie', href:'/jocuri/memorie', time:'3–8 min', ready:true },
   ],
   en: [
     { icon:'♟️', title:'Chess', desc:'Pure strategy against the computer. Every move matters.', tag:'Strategy', href:'/jocuri/sah', time:'10–30 min', ready:true },
     { icon:'🔢', title:'Sudoku', desc:'Complete the 9×9 grid. Three difficulty levels.', tag:'Logic', href:'/jocuri/sudoku', time:'5–15 min', ready:true },
     { icon:'🧩', title:'2048', desc:'Combine numbers and reach 2048. Easy to start, hard to stop.', tag:'Focus', href:'/jocuri/2048', time:'5–20 min', ready:true },
-    { icon:'🔤', title:'Word of the day', desc:'Guess the hidden word in 6 tries. A new game every day.', tag:'Vocabulary', href:'/jocuri/cuvant', time:'3–5 min', ready:false },
-    { icon:'⬛', title:'Nonograms', desc:'Reveal the hidden image by solving numerical clues.', tag:'Patience', href:'/jocuri/nonograme', time:'10–20 min', ready:false },
-    { icon:'🃏', title:'Memory', desc:'Find all the pairs. Train your attention and short-term memory.', tag:'Memory', href:'/jocuri/memorie', time:'3–8 min', ready:false },
+    { icon:'🔤', title:'Word of the day', desc:'Guess the hidden word in 6 tries. A new game every day.', tag:'Vocabulary', href:'/jocuri/cuvant', time:'3–5 min', ready:true },
+    { icon:'⬛', title:'Nonograms', desc:'Reveal the hidden image by solving numerical clues.', tag:'Patience', href:'/jocuri/nonograme', time:'10–20 min', ready:true },
+    { icon:'🃏', title:'Memory', desc:'Find all the pairs. Train your attention and short-term memory.', tag:'Memory', href:'/jocuri/memorie', time:'3–8 min', ready:true },
   ],
 }
 
