@@ -5,14 +5,13 @@ import { Lang, t } from '@/lib/i18n'
 
 export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: (l: Lang) => void }) {
   const path = usePathname()
-  const tr = t[lang].nav
 
   const items = [
-    { href: '/home', label: tr.home },
-    { href: '/companion', label: tr.companion },
-    { href: '/guide', label: tr.guide },
-    { href: '/journal', label: tr.journal },
-    { href: '/progress', label: tr.progress },
+    { href: '/home', label: lang === 'ro' ? 'Acasă' : 'Home' },
+    { href: '/companion', label: lang === 'ro' ? 'Antrenor' : 'Coach' },
+    { href: '/jocuri', label: lang === 'ro' ? 'Jocuri' : 'Games' },
+    { href: '/journal', label: lang === 'ro' ? 'Jurnal' : 'Journal' },
+    { href: '/progress', label: lang === 'ro' ? 'Progres' : 'Progress' },
     { href: '/contor', label: lang === 'ro' ? 'Contor' : 'Counter' },
   ]
 
@@ -22,7 +21,7 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
       <div className="nav-links">
         {items.map(item => (
           <Link key={item.href} href={item.href}
-            className={`nav-item ${path === item.href ? 'active' : ''}`}>
+            className={`nav-item ${path === item.href || (item.href === '/jocuri' && path.startsWith('/jocuri')) ? 'active' : ''}`}>
             {item.label}
           </Link>
         ))}
