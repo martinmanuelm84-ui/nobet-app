@@ -4,24 +4,23 @@ import { useRouter } from 'next/navigation'
 import Nav from '@/components/Nav'
 import { Lang } from '@/lib/i18n'
 
-const GAMES = {
-  ro: [
-    { icon:'♟️', title:'Șah', desc:'Strategie pură contra calculatorului. Fiecare mutare contează.', tag:'Strategie', href:'/jocuri/sah', time:'10–30 min', ready:true },
-    { icon:'🔢', title:'Sudoku', desc:'Completează grila 9×9. Trei dificultăți disponibile.', tag:'Logică', href:'/jocuri/sudoku', time:'5–15 min', ready:true },
-    { icon:'🧩', title:'2048', desc:'Combină numerele și ajunge la 2048. Simplu de început, greu de oprit.', tag:'Concentrare', href:'/jocuri/2048', time:'5–20 min', ready:true },
-    { icon:'🔤', title:'Cuvântul zilei', desc:'Ghicește cuvântul ascuns în 6 încercări. Un joc nou în fiecare zi.', tag:'Vocabular', href:'/jocuri/cuvant', time:'3–5 min', ready:true },
-    { icon:'⬛', title:'Nonograme', desc:'Descoperă imaginea ascunsă rezolvând indicii numerice. Meditativ.', tag:'Răbdare', href:'/jocuri/nonograme', time:'10–20 min', ready:true },
-    { icon:'🃏', title:'Memorie', desc:'Găsește toate perechile. Antrenează-ți atenția și memoria.', tag:'Memorie', href:'/jocuri/memorie', time:'3–8 min', ready:true },
-  ],
-  en: [
-    { icon:'♟️', title:'Chess', desc:'Pure strategy against the computer. Every move matters.', tag:'Strategy', href:'/jocuri/sah', time:'10–30 min', ready:true },
-    { icon:'🔢', title:'Sudoku', desc:'Complete the 9×9 grid. Three difficulty levels.', tag:'Logic', href:'/jocuri/sudoku', time:'5–15 min', ready:true },
-    { icon:'🧩', title:'2048', desc:'Combine numbers and reach 2048. Easy to start, hard to stop.', tag:'Focus', href:'/jocuri/2048', time:'5–20 min', ready:true },
-    { icon:'🔤', title:'Word of the day', desc:'Guess the hidden word in 6 tries. A new game every day.', tag:'Vocabulary', href:'/jocuri/cuvant', time:'3–5 min', ready:true },
-    { icon:'⬛', title:'Nonograms', desc:'Reveal the hidden image by solving numerical clues.', tag:'Patience', href:'/jocuri/nonograme', time:'10–20 min', ready:true },
-    { icon:'🃏', title:'Memory', desc:'Find all the pairs. Train your attention and short-term memory.', tag:'Memory', href:'/jocuri/memorie', time:'3–8 min', ready:true },
-  ],
-}
+const GAMES_RO = [
+  { icon:'♟️', title:'Șah', desc:'Strategie pură contra calculatorului. Fiecare mutare contează.', tag:'Strategie', href:'/jocuri/sah', time:'10–30 min' },
+  { icon:'🔢', title:'Sudoku', desc:'Completează grila 9×9. Trei dificultăți disponibile.', tag:'Logică', href:'/jocuri/sudoku', time:'5–15 min' },
+  { icon:'🧩', title:'2048', desc:'Combină numerele și ajunge la 2048. Simplu de început, greu de oprit.', tag:'Concentrare', href:'/jocuri/2048', time:'5–20 min' },
+  { icon:'🔤', title:'Cuvântul zilei', desc:'Ghicește cuvântul ascuns în 6 încercări. Un joc nou în fiecare zi.', tag:'Vocabular', href:'/jocuri/cuvant', time:'3–5 min' },
+  { icon:'⬛', title:'Nonograme', desc:'Descoperă imaginea ascunsă rezolvând indicii numerice. Meditativ.', tag:'Răbdare', href:'/jocuri/nonograme', time:'10–20 min' },
+  { icon:'🃏', title:'Memorie', desc:'Găsește toate perechile. Antrenează-ți atenția și memoria.', tag:'Memorie', href:'/jocuri/memorie', time:'3–8 min' },
+]
+
+const GAMES_EN = [
+  { icon:'♟️', title:'Chess', desc:'Pure strategy against the computer. Every move matters.', tag:'Strategy', href:'/jocuri/sah', time:'10–30 min' },
+  { icon:'🔢', title:'Sudoku', desc:'Complete the 9×9 grid. Three difficulty levels.', tag:'Logic', href:'/jocuri/sudoku', time:'5–15 min' },
+  { icon:'🧩', title:'2048', desc:'Combine numbers and reach 2048. Easy to start, hard to stop.', tag:'Focus', href:'/jocuri/2048', time:'5–20 min' },
+  { icon:'🔤', title:'Word of the day', desc:'Guess the hidden word in 6 tries. A new game every day.', tag:'Vocabulary', href:'/jocuri/cuvant', time:'3–5 min' },
+  { icon:'⬛', title:'Nonograms', desc:'Reveal the hidden image by solving numerical clues.', tag:'Patience', href:'/jocuri/nonograme', time:'10–20 min' },
+  { icon:'🃏', title:'Memory', desc:'Find all the pairs. Train your attention and short-term memory.', tag:'Memory', href:'/jocuri/memorie', time:'3–8 min' },
+]
 
 export default function JocuriPage() {
   const [lang, setLang] = useState<Lang>('ro')
@@ -32,7 +31,7 @@ export default function JocuriPage() {
     if (savedLang) setLang(savedLang)
   }, [])
 
-  const games = GAMES[lang]
+  const games = lang === 'ro' ? GAMES_RO : GAMES_EN
 
   return (
     <>
@@ -49,33 +48,23 @@ export default function JocuriPage() {
         .stat-num { font-family:'Lora',serif; font-size:2rem; font-weight:600; color:var(--accent); line-height:1; margin-bottom:4px; }
         .stat-label { font-size:0.78rem; color:var(--text2); line-height:1.4; }
         .games-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:2.5rem; }
-        .game-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:1.75rem 1.5rem; text-decoration:none; color:inherit; display:flex; flex-direction:column; position:relative; }
-        .game-card.ready { cursor:pointer; transition:border-color 0.2s,transform 0.2s; }
-        .game-card.ready:hover { border-color:var(--accent); transform:translateY(-3px); }
-        .game-card.soon { opacity:0.55; cursor:default; }
+        .game-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:1.75rem 1.5rem; color:inherit; display:flex; flex-direction:column; cursor:pointer; transition:border-color 0.2s,transform 0.2s; }
+        .game-card:hover { border-color:var(--accent); transform:translateY(-3px); }
         .game-icon { font-size:1.75rem; width:52px; height:52px; background:var(--accent-light); border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:1.125rem; }
         .game-title { font-family:'Lora',serif; font-size:1.15rem; font-weight:600; margin-bottom:0.5rem; color:var(--text); }
         .game-desc { font-size:0.82rem; color:var(--text3); line-height:1.65; flex:1; }
         .game-footer { display:flex; align-items:center; justify-content:space-between; margin-top:1.25rem; }
         .game-tag { font-size:0.7rem; color:var(--accent); background:var(--accent-light); padding:3px 10px; border-radius:100px; font-weight:500; }
         .game-time { font-size:0.72rem; color:var(--text3); }
-        .soon-badge { position:absolute; top:14px; right:14px; font-size:0.65rem; background:var(--surface2); color:var(--text3); padding:3px 8px; border-radius:100px; font-weight:500; }
         .bottom-note { background:var(--accent); border-radius:14px; padding:1.75rem 2rem; text-align:center; }
         .bottom-note h3 { font-family:'Lora',serif; font-size:1.2rem; color:white; margin-bottom:0.5rem; }
         .bottom-note p { font-size:0.85rem; color:rgba(255,255,255,0.8); line-height:1.6; }
         @media (max-width:680px) { .games-grid { grid-template-columns:1fr; } .stats-row { grid-template-columns:1fr 1fr; } }
       `}</style>
-
       <div className="jocuri-wrap">
         <div className="page-label">{lang==='ro'?'Jocuri de logică':'Logic games'}</div>
-        <h1 className="page-title">
-          {lang==='ro'?'Când simți nevoia să joci — joacă. Dar fără noroc.':'When you feel the urge — play. But without luck.'}
-        </h1>
-        <p className="page-sub">
-          {lang==='ro'
-            ?'Craving-ul trece în 15–30 de minute. Aceste jocuri îți ocupă mintea cu ceva care stimulează inteligența, nu dependența.'
-            :'The craving passes in 15–30 minutes. These games engage your mind with something that stimulates intelligence, not addiction.'}
-        </p>
+        <h1 className="page-title">{lang==='ro'?'Când simți nevoia să joci — joacă. Dar fără noroc.':'When you feel the urge — play. But without luck.'}</h1>
+        <p className="page-sub">{lang==='ro'?'Craving-ul trece în 15–30 de minute. Aceste jocuri îți ocupă mintea cu ceva care stimulează inteligența, nu dependența.':'The craving passes in 15–30 minutes. These games engage your mind with something that stimulates intelligence, not addiction.'}</p>
         <div className="craving-banner">
           <span style={{fontSize:'1.25rem',flexShrink:0}}>💚</span>
           <span>{lang==='ro'?'Alege un joc și rămâi cu noi câteva minute. Dorința trece, tu rămâi.':'Pick a game and stay with us a few minutes. The urge passes, you stay.'}</span>
@@ -87,8 +76,7 @@ export default function JocuriPage() {
         </div>
         <div className="games-grid">
           {games.map((g, i) => (
-            <div key={i} className={`game-card ${g.ready?'ready':'soon'}`} onClick={()=>g.ready&&router.push(g.href)}>
-              {!g.ready && <span className="soon-badge">{lang==='ro'?'În curând':'Soon'}</span>}
+            <div key={i} className="game-card" onClick={()=>router.push(g.href)}>
               <div className="game-icon">{g.icon}</div>
               <div className="game-title">{g.title}</div>
               <div className="game-desc">{g.desc}</div>
