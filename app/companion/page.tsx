@@ -92,7 +92,7 @@ export default function CompanionPage() {
             ? 'Criză acută? Sună 0800 070 070 (gratuit, 24/7) sau folosește butonul roșu.'
             : 'Acute crisis? Call 0800 070 070 (free, 24/7) or use the red button.'}
         </div>
-        <div className="chat-input">
+        <div className="chat-input-bar">
           <textarea
             rows={2}
             placeholder={lang === 'ro' ? 'Scrie ce simți...' : 'Write what you feel...'}
