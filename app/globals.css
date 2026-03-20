@@ -145,7 +145,7 @@ body {
 .chat-wrap {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--nav-h));
+
   max-width: 640px;
   margin: 0 auto;
 }
