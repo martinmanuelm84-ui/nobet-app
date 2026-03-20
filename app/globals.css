@@ -181,3 +181,12 @@ body {
   .top-nav { padding: 0 0.75rem; }
   .nav-links { gap: 0; }
 }
+
+.chat-input {
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
