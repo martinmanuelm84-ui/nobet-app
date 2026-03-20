@@ -58,7 +58,7 @@ export default function CompanionPage() {
       }} />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
-        .chat-wrap { max-width:640px; margin:0 auto; display:flex; flex-direction:column; max-width:640px; margin:0 auto; }
+        .chat-wrap { max-width:640px; margin:0 auto; }
         .chat-header { padding:1rem 1.5rem; border-bottom:1px solid var(--border); background:var(--surface); }
         .chat-header h2 { font-family:'Lora',serif; font-size:1.1rem; font-weight:600; color:var(--text); margin-bottom:2px; }
         .chat-header p { font-size:0.78rem; color:var(--text3); }
@@ -73,7 +73,7 @@ export default function CompanionPage() {
         .send-btn { width:44px; height:44px; border-radius:12px; background:var(--accent); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:opacity 0.2s; align-self:flex-end; }
         .send-btn:hover { opacity:0.85; }
         .send-btn:disabled { opacity:0.4; cursor:default; }
-        .crisis-note { margin:0 1.5rem 1rem; background:var(--accent-light); border:1px solid var(--border); border-radius:10px; padding:0.75rem 1rem; font-size:0.78rem; color:var(--text2); line-height:1.6; }
+        .crisisnote { margin:0 1.5rem 1rem; background:var(--accent-light); border:1px solid var(--border); border-radius:10px; padding:0.75rem 1rem; font-size:0.78rem; color:var(--text2); line-height:1.6; }
       `}</style>
       <div className="chat-wrap">
         <div className="chat-header">
