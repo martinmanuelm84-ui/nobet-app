@@ -58,22 +58,22 @@ export default function CompanionPage() {
       }} />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
-        .chat-wrap { max-width:640px; margin:0 auto; }
-        .chat-header { padding:1rem 1.5rem; border-bottom:1px solid var(--border); background:var(--surface); }
+        .chat-wrap { max-width:640px; margin:0 auto; display:flex; flex-direction:column; height:calc(100vh - 56px); overflow:hidden; }
+        .chat-header { padding:1rem 1.5rem; border-bottom:1px solid var(--border); background:var(--surface); flex-shrink:0; }
         .chat-header h2 { font-family:'Lora',serif; font-size:1.1rem; font-weight:600; color:var(--text); margin-bottom:2px; }
         .chat-header p { font-size:0.78rem; color:var(--text3); }
-        .chat-messages { flex:1; overflow-y:auto; padding:1.5rem; display:flex; flex-direction:column; gap:1rem; }
+        .chat-messages { flex:1; overflow-y:auto; padding:1.5rem; display:flex; flex-direction:column; gap:1rem; min-height:0; }
         .msg { max-width:82%; padding:0.875rem 1.125rem; border-radius:18px; font-size:0.9rem; line-height:1.65; }
         .msg.assistant { background:var(--surface); border:1px solid var(--border); color:var(--text); border-bottom-left-radius:4px; align-self:flex-start; }
         .msg.user { background:var(--accent); color:white; border-bottom-right-radius:4px; align-self:flex-end; }
         .msg.loading { opacity:0.5; font-style:italic; }
-        .chat-input { padding:1rem 1.5rem; background:var(--surface); border-top:1px solid var(--border); display:flex; gap:0.75rem; }
+        .crisis-note { margin:0 1.5rem 0.75rem; background:var(--accent-light); border:1px solid var(--border); border-radius:10px; padding:0.75rem 1rem; font-size:0.78rem; color:var(--text2); line-height:1.6; flex-shrink:0; }
+        .chat-input { padding:1rem 1.5rem; background:var(--surface); border-top:1px solid var(--border); display:flex; gap:0.75rem; flex-shrink:0; }
         .chat-input textarea { flex:1; border:1px solid var(--border); border-radius:12px; padding:0.75rem 1rem; font-size:0.9rem; font-family:inherit; resize:none; outline:none; background:var(--bg); color:var(--text); line-height:1.5; }
         .chat-input textarea:focus { border-color:var(--accent); }
         .send-btn { width:44px; height:44px; border-radius:12px; background:var(--accent); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:opacity 0.2s; align-self:flex-end; }
         .send-btn:hover { opacity:0.85; }
         .send-btn:disabled { opacity:0.4; cursor:default; }
-        .crisisnote { margin:0 1.5rem 1rem; background:var(--accent-light); border:1px solid var(--border); border-radius:10px; padding:0.75rem 1rem; font-size:0.78rem; color:var(--text2); line-height:1.6; }
       `}</style>
       <div className="chat-wrap">
         <div className="chat-header">
