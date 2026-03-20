@@ -62,7 +62,7 @@ export default function CompanionPage() {
         .chat-header { padding:1rem 1.5rem; border-bottom:1px solid var(--border); background:var(--surface); }
         .chat-header h2 { font-family:'Lora',serif; font-size:1.1rem; font-weight:600; color:var(--text); margin-bottom:2px; }
         .chat-header p { font-size:0.78rem; color:var(--text3); }
-        .chat-messages { flex:1; overflow-y:auto; padding:1.5rem; display:flex; flex-direction:column; gap:1rem; }
+        .chat-messages { flex:1; min-height:0; overflow-y:auto; padding:1.5rem; display:flex; flex-direction:column; gap:1rem; }
         .msg { max-width:82%; padding:0.875rem 1.125rem; border-radius:18px; font-size:0.9rem; line-height:1.65; }
         .msg.assistant { background:var(--surface); border:1px solid var(--border); color:var(--text); border-bottom-left-radius:4px; align-self:flex-start; }
         .msg.user { background:var(--accent); color:white; border-bottom-right-radius:4px; align-self:flex-end; }
