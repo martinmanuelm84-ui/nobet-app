@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
 
 :root {
-  --bg: #f7f6f4;
+  --bg: #f5f7f4;
   --surface: #ffffff;
-  --surface2: #f0efed;
-  --border: #e4e2de;
+  --surface2: #eef1ed;
+  --border: #dde4da;
   --text: #1a1a1a;
   --text2: #6b6b6b;
   --text3: #a0a0a0;
-  --accent: #c95f1a;
-  --accent-light: #fdf0e8;
-  --accent-dark: #a84d14;
+  --accent: #2D6A4F;
+  --accent-light: #ebf5ef;
+  --accent-dark: #1e4d38;
   --nav-h: 56px;
 }
 
@@ -22,7 +22,6 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100%;
-
 }
 
 .top-nav {
@@ -143,7 +142,6 @@ body {
 
 .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
 
-/* Chat layout */
 .chat-wrap {
   display: flex;
   flex-direction: column;
