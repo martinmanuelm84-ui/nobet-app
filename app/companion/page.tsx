@@ -58,7 +58,7 @@ export default function CompanionPage() {
       }} />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap');
-        .chat-wrap { max-width:640px; margin:0 auto; display:flex; flex-direction:column; height:calc(100vh - 56px); overflow:hidden; max-width:640px; margin:0 auto; }
+        .chat-wrap { max-width:640px; margin:0 auto; display:flex; flex-direction:column; height:calc(100vh - 56px); overflow:hidden; }
         .chat-header { padding:1rem 1.5rem; border-bottom:1px solid var(--border); background:var(--surface); }
         .chat-header h2 { font-family:'Lora',serif; font-size:1.1rem; font-weight:600; color:var(--text); margin-bottom:2px; }
         .chat-header p { font-size:0.78rem; color:var(--text3); }
