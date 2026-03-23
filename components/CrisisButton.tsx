@@ -42,8 +42,8 @@ export default function CrisisButton({ lang }: { lang: Lang }) {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&display=swap');
-        .crisis-fab { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:999; background:#dc2626; color:white; border:none; border-radius:100px; padding:14px 28px; font-size:0.9rem; font-weight:600; font-family:inherit; cursor:pointer; box-shadow:0 4px 20px rgba(220,38,38,0.4); letter-spacing:0.3px; transition:transform 0.2s,box-shadow 0.2s; white-space:nowrap; display:flex; align-items:center; gap:8px; }
-        .crisis-fab:hover { transform:translateX(-50%) translateY(-2px); box-shadow:0 6px 28px rgba(220,38,38,0.5); }
+        .crisis-fab { position:fixed; top:70px; left:16px; z-index:999; background:#dc2626; color:white; border:none; border-radius:50%; width:72px; height:72px; padding:0; font-size:0.6rem; font-weight:800; letter-spacing:1px; text-align:center; line-height:1.2; flex-direction:column; cursor:pointer; box-shadow:0 4px 16px rgba(220,38,38,0.45); display:flex; align-items:center; justify-content:center; transition:transform 0.2s,box-shadow 0.2s; }
+        .crisis-fab:hover { transform:scale(1.08); box-shadow:0 6px 24px rgba(220,38,38,0.55); }
         .crisis-fab .pulse { width:10px; height:10px; background:white; border-radius:50%; animation:pulse 1.5s infinite; }
         @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
         .crisis-overlay { position:fixed; inset:0; z-index:1000; background:#0f1a0f; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; animation:fadeIn 0.3s ease; overflow-y:auto; }
@@ -74,9 +74,9 @@ export default function CrisisButton({ lang }: { lang: Lang }) {
         .close-btn:hover { color:white; border-color:rgba(255,255,255,0.4); }
       `}</style>
 
-      <button className="crisis-fab" onClick={() => setOpen(true)}>
+      <button className="crisis-fab" onClick={() => setOpen(true)} title={ro ? 'AM POFTĂ SĂ JOC' : 'PANIC BUTTON'}>
         <span className="pulse"></span>
-        {ro ? 'AM POFTĂ SĂ JOC' : 'I WANT TO GAMBLE'}
+        PANIC BUTTON
       </button>
 
       {open && (
