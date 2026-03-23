@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Nav from '@/components/Nav'
 import { Lang, t } from '@/lib/i18n'
 
-const MILESTONES = [1, 7, 30, 90, 365]
+const MILESTONES = [1, 3, 7, 30, 90, 365]
 
 function Tree({ days }: { days: number }) {
   const progress = Math.min(1, days / 90)
@@ -122,7 +122,7 @@ export default function ContorPage() {
     }
   }
 
-  const milestoneLabels = [tr.mDay, tr.m7, tr.m30, tr.m90, tr.m365]
+  const milestoneLabels = [tr.mDay, tr.m3 ?? (lang === 'ro' ? '3 zile — primele semne.' : '3 days — first signs.'), tr.m7, tr.m30, tr.m90, tr.m365]
 
   const getMessage = () => {
     if (days <= 1) return lang === 'ro' ? 'Prima frunză — primul pas.' : 'First leaf — first step.'
