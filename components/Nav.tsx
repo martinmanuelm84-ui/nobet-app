@@ -13,6 +13,7 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
     { href: '/journal', label: lang === 'ro' ? 'Jurnal' : 'Journal' },
     { href: '/progress', label: lang === 'ro' ? 'Progres' : 'Progress' },
     { href: '/contor', label: lang === 'ro' ? 'Contor' : 'Counter' },
+    { href: '/muzica', label: lang === 'ro' ? '♪ Muzică' : '♪ Music' },
   ]
 
   return (
