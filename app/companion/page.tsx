@@ -15,6 +15,8 @@ export default function CompanionPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [playing, setPlaying] = useState<'lenta' | 'rock' | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -27,6 +29,20 @@ export default function CompanionPage() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  const toggleAudio = (type: 'lenta' | 'rock') => {
+    if (playing === type) {
+      audioRef.current?.pause()
+      setPlaying(null)
+    } else {
+      if (audioRef.current) audioRef.current.pause()
+      const audio = new Audio(`/audio/melodie-${type}.mp3`)
+      audio.loop = true
+      audio.play()
+      audioRef.current = audio
+      setPlaying(type)
+    }
+  }
 
   const send = async () => {
     if (!input.trim() || loading) return
@@ -68,6 +84,9 @@ export default function CompanionPage() {
         .msg.user { background:var(--accent); color:white; border-bottom-right-radius:4px; align-self:flex-end; }
         .msg.loading { opacity:0.5; font-style:italic; }
         .crisis-note { margin:0 1.5rem 0.75rem; background:var(--accent-light); border:1px solid var(--border); border-radius:10px; padding:0.75rem 1rem; font-size:0.78rem; color:var(--text2); line-height:1.6; flex-shrink:0; }
+        .audio-bar { margin:0 1.5rem 0.75rem; display:flex; gap:0.5rem; flex-shrink:0; }
+        .audio-btn { flex:1; padding:0.6rem 0.5rem; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-size:0.78rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.4rem; transition:background 0.2s; }
+        .audio-btn.active { background:var(--accent); color:white; border-color:var(--accent); }
         .chat-input { padding:1rem 1.5rem; background:var(--surface); border-top:1px solid var(--border); display:flex; gap:0.75rem; flex-shrink:0; }
         .chat-input textarea { flex:1; border:1px solid var(--border); border-radius:12px; padding:0.75rem 1rem; font-size:0.9rem; font-family:inherit; resize:none; outline:none; background:var(--bg); color:var(--text); line-height:1.5; }
         .chat-input textarea:focus { border-color:var(--accent); }
@@ -86,6 +105,14 @@ export default function CompanionPage() {
           ))}
           {loading && <div className="msg assistant loading">…</div>}
           <div ref={bottomRef} />
+        </div>
+        <div className="audio-bar">
+          <button className={`audio-btn ${playing === 'lenta' ? 'active' : ''}`} onClick={() => toggleAudio('lenta')}>
+            {playing === 'lenta' ? '⏸' : '▶'} {lang === 'ro' ? 'Liniște' : 'Calm'}
+          </button>
+          <button className={`audio-btn ${playing === 'rock' ? 'active' : ''}`} onClick={() => toggleAudio('rock')}>
+            {playing === 'rock' ? '⏸' : '▶'} {lang === 'ro' ? 'Energie' : 'Energy'}
+          </button>
         </div>
         <div className="crisis-note">
           🆘 {lang === 'ro'
