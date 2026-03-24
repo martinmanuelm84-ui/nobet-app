@@ -11,12 +11,15 @@ const GAMES = [
 ]
 
 export default function HomePage() {
-  const [lang, setLang] = useState<Lang>('ro')
+  const [lang, setLang] = useState<Lang>("ro")
+  const [startDate, setStartDate] = useState<string | null>(null)
   const router = useRouter()
 
   useEffect(() => {
     const savedLang = localStorage.getItem('nobet_lang') as Lang
     if (savedLang) setLang(savedLang)
+    const savedStart = localStorage.getItem("nobet_start")
+    if (savedStart) setStartDate(savedStart)
   }, [])
 
   useEffect(() => { localStorage.setItem('nobet_lang', lang) }, [lang])
