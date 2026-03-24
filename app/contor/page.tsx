@@ -7,71 +7,86 @@ const MILESTONES = [1, 3, 7, 30, 90, 365]
 
 function Tree({ days }: { days: number }) {
   const progress = Math.min(1, days / 90)
-  const leaves = Math.max(1, Math.floor(progress * 24))
+  const leaves = Math.max(1, Math.floor(progress * 28))
 
-  // Pozițiile frunzelor distribuite pe toată coroana copacului
   const leafPositions: [number, number, number][] = [
-    // vârf
-    [50, 18, 7],
-    // coroana sus
-    [42, 22, 6], [58, 22, 6],
-    [35, 28, 7], [50, 25, 6], [65, 28, 7],
-    // coroana mijloc
-    [28, 36, 7], [40, 32, 6], [50, 30, 6], [60, 32, 6], [72, 36, 7],
-    // coroana jos stânga
-    [22, 44, 6], [32, 40, 6], [42, 38, 5],
-    // coroana jos dreapta
-    [58, 38, 5], [68, 40, 6], [78, 44, 6],
-    // ramuri laterale jos
-    [18, 52, 6], [30, 48, 5], [70, 48, 5], [82, 52, 6],
-    // câteva în interior
-    [45, 35, 5], [55, 35, 5], [50, 42, 5],
+    [200, 62, 11], [185, 72, 10], [215, 72, 10],
+    [170, 85, 10], [200, 80, 9], [230, 85, 10],
+    [152, 100, 10], [168, 92, 9], [215, 92, 9], [248, 100, 10],
+    [138, 118, 10], [155, 108, 9], [175, 102, 8], [225, 102, 8], [245, 108, 9], [262, 118, 10],
+    [122, 138, 9], [140, 128, 8], [160, 118, 8], [240, 118, 8], [260, 128, 8], [278, 138, 9],
+    [108, 158, 9], [128, 146, 8], [272, 146, 8], [292, 158, 9],
+    [96, 178, 8], [304, 178, 8],
   ]
 
   const getColor = (i: number) => {
     if (i === 0) return '#86efac'
-    if (i < 3) return '#4ade80'
-    if (i < 10) return '#22c55e'
-    if (i < 18) return '#16a34a'
+    if (i < 4) return '#4ade80'
+    if (i < 12) return '#22c55e'
+    if (i < 20) return '#16a34a'
     return '#15803d'
   }
 
   return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: 300, margin: '0 auto' }}>
-      {/* Imaginea copacului gol */}
-      <img
-        src="/tree-bare.png"
-        alt="copac"
-        style={{ width: '100%', display: 'block' }}
-      />
-      {/* Frunze SVG suprapuse */}
-      <svg
-        viewBox="0 0 100 100"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-        }}
-      >
-        {leafPositions.slice(0, leaves).map(([cx, cy, r], i) => (
-          <g key={i}>
-            <ellipse
-              cx={cx} cy={cy}
-              rx={r} ry={r * 0.75}
-              fill={getColor(i)}
-              opacity={0.88}
-            />
-            <ellipse
-              cx={cx} cy={cy}
-              rx={r * 0.45} ry={r * 0.3}
-              fill="rgba(255,255,255,0.2)"
-            />
-          </g>
-        ))}
-      </svg>
-    </div>
+    <svg viewBox="0 0 400 340" style={{ width: '100%', maxWidth: 320, margin: '0 auto', display: 'block' }}>
+      {/* Umbra */}
+      <ellipse cx="200" cy="328" rx="72" ry="8" fill="rgba(0,0,0,0.07)" />
+
+      {/* Trunchi */}
+      <path d="M186,320 C184,295 182,268 183,245 C184,228 188,212 192,198 C195,186 198,175 200,168 C202,175 205,186 208,198 C212,212 216,228 217,245 C218,268 216,295 214,320 Z" fill="#8B6340"/>
+      <path d="M192,320 C190,295 189,268 190,245 C191,230 194,215 197,202 C198,193 199,182 200,175 C201,182 202,193 203,202 C206,215 209,230 210,245 C211,268 210,295 208,320 Z" fill="#a87848"/>
+
+      {/* Rădăcini */}
+      <path d="M189,315 C178,318 162,316 148,322" stroke="#8B6340" strokeWidth="4" fill="none" strokeLinecap="round"/>
+      <path d="M211,315 C222,318 238,316 252,322" stroke="#8B6340" strokeWidth="4" fill="none" strokeLinecap="round"/>
+      <path d="M193,318 C187,322 178,326 168,328" stroke="#8B6340" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M207,318 C213,322 222,326 232,328" stroke="#8B6340" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramura centrală vârf */}
+      <path d="M200,168 C200,148 200,128 200,68" stroke="#8B6340" strokeWidth="5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramuri principale stânga */}
+      <path d="M196,185 C182,172 162,155 138,122" stroke="#8B6340" strokeWidth="5.5" fill="none" strokeLinecap="round"/>
+      <path d="M193,205 C175,192 152,178 122,148" stroke="#8B6340" strokeWidth="5" fill="none" strokeLinecap="round"/>
+      <path d="M190,225 C168,214 142,202 108,172" stroke="#8B6340" strokeWidth="4.5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramuri principale dreapta */}
+      <path d="M204,185 C218,172 238,155 262,122" stroke="#8B6340" strokeWidth="5.5" fill="none" strokeLinecap="round"/>
+      <path d="M207,205 C225,192 248,178 278,148" stroke="#8B6340" strokeWidth="5" fill="none" strokeLinecap="round"/>
+      <path d="M210,225 C232,214 258,202 292,172" stroke="#8B6340" strokeWidth="4.5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramuri secundare stânga sus */}
+      <path d="M172,148 C162,136 152,122 145,105" stroke="#8B6340" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+      <path d="M155,132 C145,120 138,106 132,90" stroke="#8B6340" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M142,120 C132,108 124,94 118,78" stroke="#8B6340" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramuri secundare dreapta sus */}
+      <path d="M228,148 C238,136 248,122 255,105" stroke="#8B6340" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+      <path d="M245,132 C255,120 262,106 268,90" stroke="#8B6340" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M258,120 C268,108 276,94 282,78" stroke="#8B6340" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramuri secundare stânga mijloc */}
+      <path d="M148,168 C135,158 120,148 105,135" stroke="#8B6340" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M128,155 C115,145 102,134 90,120" stroke="#8B6340" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramuri secundare dreapta mijloc */}
+      <path d="M252,168 C265,158 280,148 295,135" stroke="#8B6340" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M272,155 C285,145 298,134 310,120" stroke="#8B6340" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+
+      {/* Ramurele fine vârf */}
+      <path d="M200,90 C193,80 186,70 180,58" stroke="#8B6340" strokeWidth="2" fill="none" strokeLinecap="round"/>
+      <path d="M200,90 C207,80 214,70 220,58" stroke="#8B6340" strokeWidth="2" fill="none" strokeLinecap="round"/>
+      <path d="M200,108 C188,96 178,85 168,72" stroke="#8B6340" strokeWidth="2" fill="none" strokeLinecap="round"/>
+      <path d="M200,108 C212,96 222,85 232,72" stroke="#8B6340" strokeWidth="2" fill="none" strokeLinecap="round"/>
+
+      {/* Frunze */}
+      {leafPositions.slice(0, leaves).map(([cx, cy, r], i) => (
+        <g key={i}>
+          <ellipse cx={cx} cy={cy} rx={r} ry={r * 0.72} fill={getColor(i)} opacity={0.9}/>
+          <ellipse cx={cx - r * 0.15} cy={cy - r * 0.1} rx={r * 0.4} ry={r * 0.25} fill="rgba(255,255,255,0.18)"/>
+        </g>
+      ))}
+    </svg>
   )
 }
 
@@ -121,15 +136,12 @@ export default function ContorPage() {
   const milestoneLabels = [
     tr.mDay,
     lang === 'ro' ? '3 zile — primele semne.' : '3 days — first signs.',
-    tr.m7,
-    tr.m30,
-    tr.m90,
-    tr.m365,
+    tr.m7, tr.m30, tr.m90, tr.m365,
   ]
 
   const getMessage = () => {
     if (days <= 1) return lang === 'ro' ? 'Prima frunză — primul pas.' : 'First leaf — first step.'
-    if (days < 3) return lang === 'ro' ? 'Rădăcinile prind pământ.' : 'Roots are taking hold.'
+    if (days < 3) return lang === 'ro' ? 'A doua zi — cel mai greu moment.' : 'Day two — the hardest moment.'
     if (days < 7) return lang === 'ro' ? 'Primii muguri apar.' : 'First buds are appearing.'
     if (days < 30) return lang === 'ro' ? 'Copacul prinde putere.' : 'The tree is growing stronger.'
     if (days < 90) return lang === 'ro' ? 'Frunzele se înmulțesc.' : 'Leaves are multiplying.'
