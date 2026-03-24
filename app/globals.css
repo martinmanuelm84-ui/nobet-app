@@ -18,6 +18,8 @@
 html { height: 100%; }
 
 body {
+  position: relative;
+  overflow-x: hidden;
   font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
