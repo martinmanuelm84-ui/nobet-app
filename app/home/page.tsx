@@ -117,12 +117,12 @@ export default function HomePage() {
               {Array.from({ length: 5 }, (_, i) => (
                 <div key={`e${i}`} className="cal-day empty">0</div>
               ))}
-              {Array.from({ length: 19 }, (_, i) => (
-                <div key={i} className={`cal-day ${i < 14 ? 'checked' : ''}`}>{i + 1}</div>
+              {Array.from({ length: new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).getDate() }, (_, i) => (
+                <div key={i} className={`cal-day ${(() => { if (!startDate) return ''; const start = new Date(startDate); const now = new Date(); const d = new Date(now.getFullYear(), now.getMonth(), i+1); return d >= start && d <= now ? 'checked' : ''; })()}`}>{i + 1}</div>
               ))}
             </div>
             <div className="days-badge">
-              <span className="days-number">14</span>
+              <span className="days-number">{startDate ? Math.max(0, Math.floor((Date.now() - new Date(startDate).getTime()) / 86400000)) : 0}</span>
               <span className="days-label">{lang === 'ro' ? 'zile libere' : 'free days'}</span>
             </div>
           </div>
