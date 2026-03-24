@@ -18,7 +18,7 @@ export default function Nav({ lang, onLangChange }: { lang: Lang; onLangChange: 
 
   return (
     <nav className="top-nav">
-      <Link href="/home" className="nav-brand">NoBet</Link>
+      <Link href="/home" className="nav-brand">BetOff</Link>
       <div className="nav-links">
         {items.map(item => (
           <Link key={item.href} href={item.href}

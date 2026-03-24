@@ -93,7 +93,7 @@ export default function HomePage() {
               {lang === 'ro' ? 'Nu e despre voință. E despre a nu mai fi singur cu asta.' : "It's not about willpower. It's about not being alone with it."}
             </p>
             <p className="hero-lead">
-              {lang === 'ro' ? 'NoBet e locul în care poți să respiri, să vorbești, să câștigi — fără noroc.' : 'NoBet is where you can breathe, talk, and win — without luck.'}
+              {lang === 'ro' ? 'BetOff e locul în care poți să respiri, să vorbești, să câștigi — fără noroc.' : 'BetOff is where you can breathe, talk, and win — without luck.'}
             </p>
             <button className="hero-btn" onClick={() => router.push('/evaluare')}>
               {lang === 'ro' ? 'Încep de azi' : 'I start today'}

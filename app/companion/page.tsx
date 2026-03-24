@@ -96,7 +96,7 @@ export default function CompanionPage() {
       `}</style>
       <div className="chat-wrap">
         <div className="chat-header">
-          <h2>{lang === 'ro' ? 'Suport NoBet' : 'NoBet Support'}</h2>
+          <h2>{lang === 'ro' ? 'Suport BetOff' : 'BetOff Support'}</h2>
           <p>{lang === 'ro' ? 'Confidențial · Disponibil oricând · Fără judecată' : 'Confidential · Always available · No judgment'}</p>
         </div>
         <div className="chat-messages">

@@ -3,7 +3,7 @@ import './globals.css'
 import CrisisWrapper from '@/components/CrisisWrapper'
 
 export const metadata: Metadata = {
-  title: 'NoBet — Fiecare zi contează',
+  title: 'BetOff — Fiecare zi contează',
   description: 'Companion pentru recuperare din dependența de jocuri de noroc.',
 }
 
